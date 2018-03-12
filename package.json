@@ -1,0 +1,26 @@
+{
+  "name": "minigame-pixi-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "game.js",
+  "scripts": {
+    "dev": "npx webpack --mode=development -w",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/pixi.js": "^4.7.2",
+    "k8w-pixi-animate": "^1.6.1",
+    "k8w-pixi-tween": "^0.7.6",
+    "pixi.js": "^4.7.0",
+    "webpack-dev-server": "^3.0.0-alpha6"
+  },
+  "devDependencies": {
+    "copy-webpack-plugin": "^4.5.1",
+    "ts-loader": "^4.0.1",
+    "typescript": "^2.7.2",
+    "webpack": "^4.1.1",
+    "webpack-cli": "^2.0.11"
+  }
+}
