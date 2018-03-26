@@ -22,6 +22,11 @@ module.exports = env => {
         'game.json',
         'project.config.json'
     ];
+
+    if (!env) {
+        env = {};
+    }
+
     if (!env.wxgame) {
         copyRes.push('index.html')
     }
