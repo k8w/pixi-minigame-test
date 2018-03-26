@@ -24,6 +24,8 @@ npm run dev:wx
 
 ## 构建
 
+> 将构建至dist目录，并先清空上一次的构建
+
 ### HTML5版本
 ```
 npm run build
