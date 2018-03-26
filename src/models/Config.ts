@@ -1,4 +1,4 @@
 const Config = {
-    resBaseUrl: 'http://192.168.0.62:8080/'
+    resBaseUrl: DEBUG ? 'http://' + DEV_SERVER_IP + ':8080/res/' : 'XXX'
 }
 export default Config;

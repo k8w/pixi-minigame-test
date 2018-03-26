@@ -3,37 +3,66 @@ const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const isProduction = process.argv.indexOf('--mode=production') > -1;
 
-module.exports = {
-    entry: {
-        game: './game.ts'
-    },
-    resolve: {
-        extensions: ['.ts', '.js'],
-        symlinks: false
-    },
-    module: {
-        rules: [
-            {
-                test: /\.ts$/, use: ['ts-loader']
+/** 获取本机IP地址 用于开发时设置资源路径 */
+function getIPAddress() {
+    var interfaces = require('os').networkInterfaces();
+    for (var devName in interfaces) {
+        var iface = interfaces[devName];
+        for (var i = 0; i < iface.length; i++) {
+            var alias = iface[i];
+            if (alias.family === 'IPv4' && alias.address !== '127.0.0.1' && !alias.internal) {
+                return alias.address;
             }
-        ]
-    },
-    plugins: [
-        new webpack.DefinePlugin({
-            'DEBUG': isProduction ? 'false' : 'true',
-            'IS_WX_MINIGAME': 'true'
-        }),
-        new CopyWebpackPlugin([
-            'game.json',
-            'project.config.json'
-        ])
-    ],
-    devServer: {
-        contentBase: __dirname,
-        host: '0.0.0.0',
-        port: 8080,
-        disableHostCheck: true
-    },
-    devtool: isProduction ? 'none' : 'source-map',
-    // target: 'electron'
+        }
+    }
+}
+
+module.exports = env => {
+    let copyRes = [
+        'game.json',
+        'project.config.json'
+    ];
+    if (!env.wxgame) {
+        copyRes.push('index.html')
+    }
+
+    let config = {
+        entry: {
+            game: './game.ts'
+        },
+        resolve: {
+            extensions: ['.ts', '.js'],
+            symlinks: false
+        },
+        module: {
+            rules: [
+                {
+                    test: /\.ts$/, use: ['ts-loader']
+                }
+            ]
+        },
+        plugins: [
+            new webpack.DefinePlugin({
+                'DEBUG': isProduction ? 'false' : 'true',
+                'DEV_SERVER_IP': JSON.stringify(getIPAddress()),
+                'IS_WX_MINIGAME': 'true'
+            }),
+            new CopyWebpackPlugin(copyRes)
+        ],
+        devServer: {
+            contentBase: __dirname,
+            host: '0.0.0.0',
+            port: 8080,
+            disableHostCheck: true,
+            headers: {
+                'Access-Control-Allow-Origin': '*'
+            }
+        }
+    }
+
+    if (env.wxgame) {
+        config.devtool = 'none';
+    }
+
+    return config;
 }
