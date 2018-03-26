@@ -50,7 +50,7 @@ module.exports = env => {
             new webpack.DefinePlugin({
                 'DEBUG': isProduction ? 'false' : 'true',
                 'DEV_SERVER_IP': JSON.stringify(getIPAddress()),
-                'IS_WX_MINIGAME': 'true'
+                'IS_WXGAME': JSON.stringify(!!env.wxgame)
             }),
             new CopyWebpackPlugin(copyRes)
         ],
