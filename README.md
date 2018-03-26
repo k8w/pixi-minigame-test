@@ -17,7 +17,7 @@ npm run dev
 
 ### 在微信开发者工具中调试
 ```
-npm run devwx
+npm run dev:wx
 ```
 打开微信开发者工具，新建项目，项目目录设为 `dist`。
 启动调试即可。

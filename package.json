@@ -5,9 +5,9 @@
   "main": "game.js",
   "scripts": {
     "dev": "webpack-dev-server --mode=development",
-    "devwx": "start http-server -c-1 && rm -rf dist && webpack --mode=development --env.wxgame -w",
+    "dev:wx": "start http-server -c-1 && rm -rf dist && webpack --mode=development --env.wxgame -w",
     "build": "rm -rf dist && webpack --mode=production",
-    "build:wxgame": "rm -rf dist && webpack --mode=production --env.wxgame",
+    "build:wx": "rm -rf dist && webpack --mode=production --env.wxgame",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
